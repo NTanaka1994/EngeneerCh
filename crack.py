@@ -49,7 +49,7 @@ for a in range(126-32):
                     flag=1
                 else:
                     if c4>126:
-                        c3=32
+                        c4=32
                     else:
                         c4=c4+1
                 for e in range(126-32):
