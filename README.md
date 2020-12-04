@@ -1,1 +1,2 @@
-"# EngeneerCh" 
+#EngeneerCh
+某YouTubeチャンネルでやってたプログラムを実際に作ってみた
