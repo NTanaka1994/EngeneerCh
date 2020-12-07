@@ -1,48 +1,56 @@
 import zipfile
-c1=32
-c2=32
-c3=32
+c=[]
+for i in range(127-32):
+    c.append(chr(i+32))
+s=chr(ord(c[0]))+chr(ord(c[0]))+chr(ord(c[0]))#+chr(ord(c[0][0]))+chr(ord(c[0][0]))
 flag=0
-s=chr(c1)+chr(c2)+chr(c3)
-path="obj.zip"
-for i in range(126-32):
-    s=chr(c1)+chr(c2)+chr(c3)
+
+path="履歴書.zip"
+for i in range(len(c)):
     if flag==1:
         break
-    try:
-        with zipfile.ZipFile(path, 'r') as zip_file:
-            zip_file.extractall(path=".", pwd=s.encode("utf-8"))
-        flag=1
-    except:
-        if c1>126:
-              c1=32
-        else:
-            c1=c1+1
-    for j in range(126-32):
-        s=chr(c1)+chr(c2)+chr(c3)
+    for j in range(len(c)):
         if flag==1:
             break
-        try:
-            with zipfile.ZipFile(path, 'r') as zip_file:
-                zip_file.extractall(path=".", pwd=s.encode("utf-8"))
-            flag=1
-        except:
-            if c2>126:
-                c2=32
-            else:
-                c2=c2+1
-        for k in range(126-32):
-            s=chr(c1)+chr(c2)+chr(c3)
+        for k in range(len(c)):
+            s=chr(ord(c[i]))+chr(ord(c[j]))+chr(ord(c[k]))
             if flag==1:
                 break
-            try:
-                with zipfile.ZipFile(path, 'r') as zip_file:
-                    zip_file.extractall(path=".", pwd=s.encode("utf-8"))
-                flag=1
-            except:
-                if c3>126:
-                    c3=32
+            else:
+                try:
+                    with zipfile.ZipFile(path,"r") as zip_file:
+                        zip_file.extractall(path=".", pwd=s.encode("utf-8"))
+                    flag=1
+                except:
+                    flag=0
+                    """
+            for l in range(len(c[0])):
+                s=chr(ord(c[0][i]))+chr(ord(c[0][j]))+chr(ord(c[0][k]))+chr(ord(c[0][l]))
+                if flag==1:
+                    break
                 else:
-                    c3=c3+1
                     #print(s)
-print("PassCord:"+str(chr(c1)+chr(c2)+chr(c3)))#+chr(c4)))#+chr(c5)+chr(c6)))
+                    try:
+                        with zipfile.ZipFile(path,"r") as zip_file:
+                            zip_file.extractall(path=".", pwd=s.encode("utf-8"))
+                        flag=1
+                    except:
+                        flag=0
+                
+                for m in range(len(c[0])):
+                    if flag==1:
+                        break
+                    for n in range(len(c[0])):
+                        s=chr(ord(c[0][i]))+chr(ord(c[0][j]))+chr(ord(c[0][k]))+chr(ord(c[0][l]))+chr(ord(c[0][m]))+chr(ord(c[0][n]))
+                        if flag==1:
+                            break
+                        else:
+                            #print(s)
+                            try:
+                                with zipfile.ZipFile(path,"r") as zip_file:
+                                    zip_file.extractall(path=".", pwd=s.encode("utf-8"))
+                                flag=1
+                            except:
+                                flag=0
+                                """
+print("PASSWORD:"+chr(ord(c[i-1]))+chr(ord(c[j-1]))+chr(ord(c[k-1])))#+chr(ord(c[0][l-1])))#+chr(ord(c[0][m-1]))+chr(ord(c[0][n-1])))
