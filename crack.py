@@ -5,7 +5,7 @@ for i in range(127-32):
 s=chr(ord(c[0]))+chr(ord(c[0]))+chr(ord(c[0]))#+chr(ord(c[0][0]))+chr(ord(c[0][0]))
 flag=0
 
-path="履歴書.zip"
+path="obj.zip"
 for i in range(len(c)):
     if flag==1:
         break
