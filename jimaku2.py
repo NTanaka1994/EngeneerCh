@@ -17,7 +17,7 @@ for path in glob.glob("folder/*.wav"):
 print(total)
 
 #台本の読み込み
-f=open("YuukiMovie/sample.txt","r",encoding="utf-8")
+f=open("story_doc/sample.txt","r",encoding="utf-8")
 s=f.read()
 f.close()
 rm=s.split("\n")
