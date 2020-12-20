@@ -9,8 +9,8 @@ import numpy as np
 #文字起こし行う
 total=[]
 r=sr.Recognizer()
-for path in glob.glob("Yuuki/*.wav"):
-    with sr.AudioFile("Yuuki/"+path[6:]) as src:
+for path in glob.glob("folder/*.wav"):
+    with sr.AudioFile("folder/"+path[6:]) as src:
         ad=r.record(src)
     text=r.recognize_google(ad, language='ja-JP')
     total.append(text)
@@ -67,8 +67,8 @@ for i in range(len(x_train)):
 
 #修正した文書を保存
 i=0
-for path in glob.glob("Yuuki/*.wav"):
-    f=open("Yuuki/"+path[6:]+".txt","w",encoding="shift-jis")
+for path in glob.glob("folder/*.wav"):
+    f=open("folder/"+path[6:]+".txt","w",encoding="shift-jis")
     f.write(out[i])
     f.close()
     i=i+1
