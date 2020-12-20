@@ -57,9 +57,9 @@ out=[]
 #脚本と入れ替え
 for i in range(len(x_train)):
     num=0
-    sim=np.dot(x_train[i],x_test[0]) / (np.linalg.norm(x_train[i]) * np.linalg.norm(x_test[0]))
+    sim=np.dot(x_train[i],x_test[0])/(np.linalg.norm(x_train[i])*np.linalg.norm(x_test[0]))
     for j in range(len(x_test)):
-        sim2=np.dot(x_train[i],x_test[j]) / (np.linalg.norm(x_train[i]) * np.linalg.norm(x_test[j]))
+        sim2=np.dot(x_train[i],x_test[j])/(np.linalg.norm(x_train[i])*np.linalg.norm(x_test[j]))
         if sim2>sim:
             num=j
             sim=sim2
