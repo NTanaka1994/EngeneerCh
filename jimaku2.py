@@ -1,5 +1,4 @@
 from sklearn.feature_extraction.text import TfidfVectorizer as tfidf
-from sklearn.neural_network import MLPClassifier
 from janome.tokenizer import Tokenizer
 import speech_recognition as sr
 import subprocess
