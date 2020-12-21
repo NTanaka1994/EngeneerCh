@@ -1,26 +1,30 @@
 from sklearn.feature_extraction.text import TfidfVectorizer as tfidf
+from sklearn.neural_network import MLPClassifier
 from janome.tokenizer import Tokenizer
 import speech_recognition as sr
-import subprocess#mp4ファイルをwavファイルに変換する時に使う
+import subprocess
 import glob
 import numpy as np
+
+#mp4からwavファイルに変換
+for path in glob.glob("Movie/*.mp4"):
+    cmd=r'ffmpeg -i Movie/'+path[6:]+" Movie/"+path[6:]+".wav"
+    subprocess.call(cmd)
 
 #文字起こし行う
 total=[]
 r=sr.Recognizer()
-for path in glob.glob("folder/*.wav"):
-    with sr.AudioFile("folder/"+path[6:]) as src:
+for path in glob.glob("Movie/*.wav"):
+    with sr.AudioFile("Movie/"+path[6:]) as src:
         ad=r.record(src)
     text=r.recognize_google(ad, language='ja-JP')
     total.append(text)
-print(total)
 
 #台本の読み込み
-f=open("story_doc/sample.txt","r",encoding="utf-8")
+f=open("sinario/sample.txt","r",encoding="utf-8")
 s=f.read()
 f.close()
 rm=s.split("\n")
-print(rm)
 
 #形態素解析
 t=Tokenizer()
@@ -56,9 +60,9 @@ out=[]
 #脚本と入れ替え
 for i in range(len(x_train)):
     num=0
-    sim=np.dot(x_train[i],x_test[0])/(np.linalg.norm(x_train[i])*np.linalg.norm(x_test[0]))
+    sim=np.dot(x_train[i],x_test[0]) / (np.linalg.norm(x_train[i]) * np.linalg.norm(x_test[0]))
     for j in range(len(x_test)):
-        sim2=np.dot(x_train[i],x_test[j])/(np.linalg.norm(x_train[i])*np.linalg.norm(x_test[j]))
+        sim2=np.dot(x_train[i],x_test[j]) / (np.linalg.norm(x_train[i]) * np.linalg.norm(x_test[j]))
         if sim2>sim:
             num=j
             sim=sim2
@@ -66,8 +70,8 @@ for i in range(len(x_train)):
 
 #修正した文書を保存
 i=0
-for path in glob.glob("folder/*.wav"):
-    f=open("folder/"+path[6:]+".txt","w",encoding="shift-jis")
+for path in glob.glob("Movie/*.wav"):
+    f=open("Movie/"+path[6:]+".txt","w",encoding="shift-jis")
     f.write(out[i])
     f.close()
     i=i+1
