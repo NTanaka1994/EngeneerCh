@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 import subprocess
 
 #mp4ファイルをwavファイルに変換
-cmd=r'ffmpeg -i YuukiMovie/sample.mp4 YuukiMovie/sample.wav'
+cmd=r'ffmpeg -i Src/sample.mp4 Src/sample.wav'
 subprocess.call(cmd)
 
 #wavファイルの読み込み
-a,sr=librosa.load("YuukiMovie/sample.wav")
+a,sr=librosa.load("Src/sample.wav")
 
 #デシベル計算
 D=librosa.stft(a)
@@ -35,5 +35,5 @@ for i in range(len(noSound)):
 
 #動画の無音部分をカットして保存する
 for i in range(len(interval)):
-    video=VideoFileClip("YuukiMovie/sample.mp4").subclip(interval[i][0]/sr,interval[i][1]/sr)
-    video.write_videofile("CutMovie/"+str(i+1)+".mp4",fps=29)
+    video=VideoFileClip("Src/sample.mp4").subclip(interval[i][0]/sr,interval[i][1]/sr)
+    video.write_videofile("Store/"+str(i+1)+".mp4",fps=29)
