@@ -5,35 +5,35 @@ import matplotlib.pyplot as plt
 import subprocess
 
 #mp4ファイルをwavファイルに変換
-cmd=r'ffmpeg -i Src/sample.mp4 Src/sample.wav'
+cmd = r'ffmpeg -i Src/sample.mp4 Src/sample.wav'
 subprocess.call(cmd)
 
 #wavファイルの読み込み
-a,sr=librosa.load("Src/sample.wav")
+a, sr = librosa.load("Src/sample.wav")
 
 #デシベル計算
-D=librosa.stft(a)
-S,phase=librosa.magphase(D)
-Sdb=librosa.amplitude_to_db(S)
+D = librosa.stft(a)
+S, phase = librosa.magphase(D)
+Sdb = librosa.amplitude_to_db(S)
 
 #カットする音声の選出
-interval=librosa.effects.split(a,top_db=max(Sdb.ravel())*1.75)
-noSound=[]
-tmp=[]
+interval = librosa.effects.split(a, top_db=max(Sdb.ravel())*1.75)
+noSound = []
+tmp = []
 tmp.append(0)
 tmp.append(interval[0][0])
 noSound.append(tmp)
-tmp=[]
+tmp = []
 for i in range(len(interval)-1):
     tmp.append(interval[i][1])
     tmp.append(interval[i+1][0])
     noSound.append(tmp)
-    tmp=[]
+    tmp = []
 print("無音区間")
 for i in range(len(noSound)):
     print("開始位置:"+str(noSound[i][0]/sr)+"\t終了位置:"+str(noSound[i][1]/sr))
 
 #動画の無音部分をカットして保存する
 for i in range(len(interval)):
-    video=VideoFileClip("Src/sample.mp4").subclip(interval[i][0]/sr,interval[i][1]/sr)
-    video.write_videofile("Store/"+str(i+1)+".mp4",fps=29)
+    video = VideoFileClip("Src/sample.mp4").subclip(interval[i][0]/sr, interval[i][1]/sr)
+    video.write_videofile("Store/"+str(i+1)+".mp4", fps=29)
