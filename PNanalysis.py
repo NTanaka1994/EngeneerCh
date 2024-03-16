@@ -3,39 +3,39 @@ import numpy as np
 from janome.tokenizer import Tokenizer
 
 #極性辞書の作成
-f=open("PNtable.csv","r",encoding="shift-jis")
-reader=csv.reader(f)
-dic={}
+f = open("PNtable.csv","r",encoding="shift-jis")
+reader = csv.reader(f)
+dic = {}
 for row in reader:
-    dic[row[0]]=float(row[3])
+    dic[row[0]] = float(row[3])
 f.close()
 
 #文書の読み込み
-f=open("rashomon.txt","r",encoding="shift-jis")
-text=f.read()
+f = open("rashomon.txt", "r", encoding="shift-jis")
+text = f.read()
 
 #形態素解析
-t=Tokenizer()
-word=t.tokenize(text,wakati=True)
+t = Tokenizer()
+word = t.tokenize(text, wakati=True)
 
 #極性分析
-val=[]
-pos=[]
-neg=[]
+val = []
+pos = []
+neg = []
 for i in range(len(word)):
     try:
         val.append(dic[word[i]])
-        if dic[word[i]]<0:
+        if dic[word[i]] < 0:
             neg.append(dic[word[i]])
-        elif dic[word[i]]>0:
+        elif dic[word[i]] > 0:
             pos.append(dic[word[i]])
     except:
-        a=1
+        a = 1
 
 #配列化
-val=np.array(val)
-pos=np.array(pos)
-neg=np.array(neg)
+val = np.array(val)
+pos = np.array(pos)
+neg = np.array(neg)
 
 #単語数を加味する
 #ポジティブ度合い
